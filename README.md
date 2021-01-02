@@ -36,3 +36,7 @@
 #### Gaussian Stack:
 #### Now, we create Guassian and Laplacian stacks. In order to create a Guassian stack for an image, we repeatedly apply a Gaussian filter(40x40, sigma=5) to the same image to create the levels of the stack. To create the levels of the Laplacian stack, you take the difference of each successive pair of levels in the Gaussian stack.
 
+### Part 2.4: Multiresolution Blending
+
+
+#### The goal of this part of the assignment is to blend two images seamlessly using a multi resolution blending. We use the Laplacian and Gaussian stacks that we created in the last part to achieve this. These stacks are used to break two images down into various frequency bands and then combine each band using a mask. This mask decides the weights for each image. For example, the circular mask is a 2d array with 1’s in a circle with a provided center position and radius. This is why a picture of my face appears on my dog in a circle in the hybrid image below. The resulting images are added together to create a hybrid blended image.
