@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Chetana Ramaiyer</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Scaffold - v2.0.0
+  * Template URL: https://bootstrapmade.com/scaffold-bootstrap-metro-style-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+      <div class="container d-flex">
+        <div class="logo mr-auto">
+          <ul>
+            <li><width ="100%;"><img src="assets/img/curlyhair.png"></a> </li>
+            <li><h1 style="font-size:100%;"><a href="index.html"><span>Chetana Ramaiyer</span></a></h1></li>
+          </ul>
+        </div>
+
+      </div>
+    </header><!-- End Header -->
+
+    <!-- ======= Team Section ======= -->
+    <section id="team" class="team">
+      <div class="container">
+
+        <div> <p><br></p> <p><br></p> </div>
+        <div class="section-title" data-aos="fade-up">
+          <h1>Fun with Filters and Frequencies!<br></h1>
+          <br></br>
+          <h3>Chetana Ramaiyer</h3>
+          <h5>CS 194-26: Computational Photography, Fall 2020 <br></h5>
+          <br></br>
+          <h3>Overview</h3>
+        </div>
+
+        <div class="overview" data-aos="fade-up">
+          <p>In this section, we used our finite difference operator on the cameraman image to generate two derivative images with respect to the x-axis and y-axis. We then combined the two images using the gradient magnitude equation, which is the square root of the added squares of the derivatives, to generate the edge image. Lastly, I binarized the result of this to remove noise. Unfortunately, due to the amount of noise in the resulting edge image, the binarization threshold numbers had to be quite aggresive in order to remove most of it, causing a loss of some detail.</p>
+         </div>
+
+        <br></br>
+        <br></br>
+        <div class="section-title" data-aos="fade-up">
+             <h3>Part 1: Fun with Filters</h3>
+        </div>
+
+        <div class="overview" data-aos="fade-up">
+          <h4>Part 1.1: Finite Difference Operator</h4>
+          <br></br>
+          <div class="section-image" data-aos="fade-up">
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/cameraman.png" class="img-fluid" alt="" align="center">
+                  <figcaption> Original</figcaption>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/camera_dx.png" class="img-fluid" alt="" align="center">
+                  <figcaption> X gradient</figcaption>
+              </div>
+
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/camera_dy.png" class="img-fluid" alt="" align="center">
+                  <figcaption>Y gradient</figcaption>
+                  <p><br></p>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/camera_grad_mag.png" class="img-fluid" alt="" align="center">
+                  <figcaption>Gradient Magnitude</figcaption>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/camera_bin_edge.png" class="img-fluid" alt="" align="center">
+                  <figcaption> Binarized Edges</figcaption>
+                  <p><br></p>
+              </div>
+          </div>
+          <p>We convolved the cameraman image to find the edges. To get an edge image, we first got the partial derivative in x of the image by convolving it with the filter [[1,-1]]. Similarly we got the partial derivative in y of the image by convolving it with [[1],[-1]]. We then used the gradient magnitude equation to combine the two images (the square root of the added squares of the derivatives), which finds the edges of the images. However, this image of the edges produced very noisy results, with a lot of unclear edges. Therefore, we binarized the edges to remove noise.</p>
+        </div>
+        <br></br>
+        <div class="overview" data-aos="fade-up">
+          <h4>Part 1.2: Derivative of Gaussian (DoG) Filter</h4>
+        </div>
+        <p>In the last part, there was a lot of noise even after binarizing the edges. Therefore, we applied a gaussian filter (8x8, sigma = 2)  in order to “smooth” out the image, which makes it easier to detect edges. There are two methods of doing this, but both produce the same result.
+
+</p><p>Method 1 involves finding the convolution of the gaussian filter with [[-1, 1]] and [[-1],[1]] and then using that result to convolve with the actual cameraman image. Method 1 is better in bigger computations, because it is faster. You can reuse the constant convolved gaussian with [[-1, 1]] and [[-1],[1]].
+Method 2 involves finding the convolution of the gaussian filter with the image and then using that result to convolve with the [[-1, 1]] and [[-1],[1]] .
+As you can see in the resulting images below, both methods produce the same result.</p>
+        <h4>Method 1:</h4>
+        <div class="section-image" data-aos="fade-up">
+            <div class="section-image-col" data-aos="fade-up">
+                <img src="out_path/dx_gauss1.2.png" height= 300px; width = 300px;class="img-fluid" alt="" align="center">
+                <figcaption> dx Gaussian Filter</figcaption>
+            </div>
+            <div class="section-image-col" data-aos="fade-up">
+                <img src="out_path/dy_gauss1.2.png" height= 300px; width = 300px;class="img-fluid" alt="" align="center">
+                <figcaption> dy Gaussian Filter</figcaption>
+            </div>
+
+            <div class="section-image-col" data-aos="fade-up">
+                <img src="out_path/gauss_blur_meth1_1.2.png" height= 300px; width = 300px;class="img-fluid" alt="" align="center">
+                <figcaption>Gaussian Blur Method 1</figcaption>
+                <p><br></p>
+            </div>
+        </div>
+        <h4>Method 2:</h4>
+        <img src="out_path/gauss_blur_meth2_1.2.png" height= 300px; width = 300px;class="img-fluid" alt="" align="center">
+        <figcaption> Gaussian Blur Method 2</figcaption>
+        <br></br>
+        <div class="overview" data-aos="fade-up">
+          <h4>Part 1.3: Image Straightening</h4>
+          <br></br>
+        </div>
+        <p>Now, we want to take images that are slightly rotated and rotate them to a certain degree such that the image appears straight. We used our gradient and edge detection methods from parts 1.1 and 1.2 to help create a function that automatically straightens our images.</p>
+<p>This is achieved by rotating the image by various angles and counting the number of vertical and horizontal edges in each rotated image. We convolve each rotated image with the gaussian filter to smooth it out, so it’s easier to detect edges. For each rotated image, we crop it (so that the black surroundings from the rotation do not appear) and we then count the number of horizontal and vertical edges. We keep track of the angle that resulted in the highest number of horizontal and vertical edges in the rotated image.</p>
+
+<p>I tried 21 different angles from each image, ranging from -10 to 10 degrees. I then applied this rotation algorithm on four different images, and they all worked pretty well. There was one failure case, where the image did not straighten at all.
+</p>
+<p>I display the histogram for each image rotated at it’s “best” angle. The histograms count the number of edges at various degrees for each image rotated at its “best” angle.</p>
+        <div class="section-image" data-aos="fade-up">
+            <div class="section-image-col" data-aos="fade-up">
+                <img src="out_path/before_rot_1.png" class="img-fluid" alt="" align="center">
+            </div>
+            <div class="section-image-col" data-aos="fade-up">
+                <img src="out_path/after_rot_1.png" class="img-fluid" alt="" align="center">
+            </div>
+        </div>
+        <div class="section-image" data-aos="fade-up">
+            <div class="section-image-col" data-aos="fade-up">
+                <img src="out_path/before_rot_2.png" class="img-fluid" alt="" align="center">
+                <p><br></p>
+            </div>
+            <div class="section-image-col" data-aos="fade-up">
+                <img src="out_path/after_rot_2.png" class="img-fluid" alt="" align="center">
+            </div>
+        </div>
+        <div class="section-image" data-aos="fade-up">
+            <div class="section-image-col" data-aos="fade-up">
+                <img src="out_path/before_rot_3.png" class="img-fluid" alt="" align="center">
+                <p><br></p>
+            </div>
+            <div class="section-image-col" data-aos="fade-up">
+                <img src="out_path/after_rot_3.png" class="img-fluid" alt="" align="center">
+            </div>
+        </div>
+        <div class="section-image" data-aos="fade-up">
+            <div class="section-image-col" data-aos="fade-up">
+                <img src="out_path/before_rot_4.png" class="img-fluid" alt="" align="center">
+                <p><br></p>
+            </div>
+            <div class="section-image-col" data-aos="fade-up">
+                <img src="out_path/after_rot_4.png" class="img-fluid" alt="" align="center">
+            </div>
+        </div>
+        <h4>Failure Case: </h4>
+        <br></br>
+        <div class="section-image" data-aos="fade-up">
+            <div class="section-image-col" data-aos="fade-up">
+                <img src="out_path/before_rot_5.png" class="img-fluid" alt="" align="center">
+                <figcaption>Image 1</figcaption>
+            </div>
+            <div class="section-image-col" data-aos="fade-up">
+                <img src="out_path/after_rot_5.png" class="img-fluid" alt="" align="center">
+                <figcaption> Image 2</figcaption>
+            </div>
+
+        </div>
+
+        <br></br>
+        <br></br>
+        <div class="section-title" data-aos="fade-up">
+             <h3>Part 2: Fun with Frequencies!</h3>
+        </div>
+
+        <div class="overview" data-aos="fade-up">
+          <h4>Part 2.1: Image "Sharpening"</h4>
+          <br></br>
+          <p>
+Now, we want to be able to sharpen images. We achieve this by blurring an image using a low-pass gaussian filter. Then, we subtract the blurred image from the original image to isolate the high frequencies in the image. This result contains an image with a lot of details, so we multiply the image with high frequencies by an alpha and add it back to the original image to create the sharpened image.
+</p>
+          <div class="section-image" data-aos="fade-up">
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/taj_og.png" height= 300px; width = 300px;class="img-fluid" alt="" align="center">
+                  <figcaption>Original Image</figcaption>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/taj_blur.png" height= 300px; width = 300px;class="img-fluid" alt="" align="center">
+                  <figcaption> Blurred Image</figcaption>
+              </div>
+
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/taj_sharp.png" height= 300px; width = 300px;class="img-fluid" alt="" align="center">
+                  <figcaption>Sharpened Image</figcaption>
+                  <p><br></p>
+              </div>
+          </div>
+          <h4>Trying it out on some of my pictures... </h4>
+          <p>Here, I took a normal clarity image and blurred it using a gaussian filter. I then sharpened it using the method described above. It worked well.</p>
+          <div class="section-image" data-aos="fade-up">
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/bbridge_og.png" height= 300px; width = 300px;class="img-fluid" alt="" align="center">
+                  <figcaption>Original Image</figcaption>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/bbridge_blur.png" height= 300px; width = 300px;class="img-fluid" alt="" align="center">
+                  <figcaption> Blurred Image</figcaption>
+              </div>
+
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/bbridge_sharp.png" height= 300px; width = 300px;class="img-fluid" alt="" align="center">
+                  <figcaption>Sharpened Image</figcaption>
+                  <p><br></p>
+              </div>
+          </div>
+          <p>Here, I took a blurry image and tried to sharpen it. It didn't work that well and simply appeared a little darker. This is probably because the image was too shaky, rather than blurry to begin with.</p>
+          <div class="section-image" data-aos="fade-up" align="center">
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="data/mirror.jpg"; height = 300px;class="img-fluid" alt="" align="center">
+                  <figcaption>Original Image</figcaption>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/mirror_sharp.png"class="img-fluid" alt="" align="center">
+                  <figcaption> Sharpened Image</figcaption>
+              </div>
+          </div>
+        </div>
+        <br></br>
+        <br></br>
+        <div class="overview" data-aos="fade-up">
+          <h4>Part 2.2: Hybrid Images</h4>
+          <br></br>
+          <p>Now, we try to morph images together through this concept of “hybrid images.” This idea involves combining two images that appear different depending on where you are standing. If you’re standing close to the image, you will see the high_frequencies and if you’re standing far, you will see the lower frequencies. We create this hybrid image in a way that presents one image at lower frequencies, so you only see it from afar. And the other image at higher frequencies is only seen from afar. </p>
+
+<p>The way we achieved this is by first aligning the images. My macbook didn’t have a high enough version to be able to use this alignment function, so I manually aligned it and used those manually aligned images. We apply two different gaussian filters to each image to blur them. With one image, we simply use the blurred version in our hybrid image. With the other, we use the blurred image to compute the sharpened image. We then sum up/average these images to create this hybrid image.
+</p>
+          <div class="section-image" data-aos="fade-up">
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/derek_before.png" class="img-fluid" alt="" align="center">
+                  <figcaption>Image 1</figcaption>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/cat_before.png" class="img-fluid" alt="" align="center">
+                  <figcaption> Image 2</figcaption>
+              </div>
+
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/derek_cat.png" class="img-fluid" alt="" align="center">
+                  <figcaption>Hybrid Image</figcaption>
+                  <p><br></p>
+              </div>
+          </div>
+          <br></br>
+          <div class="section-image" data-aos="fade-up">
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="data/monroe.jpeg" class="img-fluid" alt="" align="center">
+                  <figcaption>Image 1</figcaption>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="data/einstein.jpeg" class="img-fluid" alt="" align="center">
+                  <figcaption> Image 2</figcaption>
+              </div>
+
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/hybrid_einstein_mon.png" class="img-fluid" alt="" align="center">
+                  <figcaption>Hybrid Image</figcaption>
+                  <p><br></p>
+              </div>
+          </div>
+          <div class="section-image" data-aos="fade-up">
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/monroe_freq.png" class="img-fluid" alt="" align="center">
+                  <figcaption>Monroe</figcaption>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/einstein_freq.png" class="img-fluid" alt="" align="center">
+                  <figcaption> Einstein </figcaption>
+              </div>
+
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/highpass_monroe.png" class="img-fluid" alt="" align="center">
+                  <figcaption>High pass_monroe</figcaption>
+                  <p><br></p>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/low_pass_einstein.png" class="img-fluid" alt="" align="center">
+                  <figcaption>Low pass einstein</figcaption>
+                  <p><br></p>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/hybrid_freq.png" class="img-fluid" alt="" align="center">
+                  <figcaption>Hybrid</figcaption>
+                  <p><br></p>
+              </div>
+          </div>
+          <h4>Failure Case: </h4>
+          <br></br>
+          <p> This case was a case where the images weren't properly combined because the images were aligned well."</p>
+          <div class="section-image" data-aos="fade-up">
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/kumar_before.png" class="img-fluid" alt="" align="center">
+                  <figcaption>Image 1</figcaption>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/rio_before.png" class="img-fluid" alt="" align="center">
+                  <figcaption> Image 2</figcaption>
+              </div>
+
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/kumar_rio.png" class="img-fluid" alt="" align="center">
+                  <figcaption>Hybrid Image</figcaption>
+                  <p><br></p>
+              </div>
+          </div>
+
+
+        </div>
+
+        <br></br>
+        <div class="overview" data-aos="fade-up">
+          <h4>Part 2.3: Gaussian and Laplacian Stacks</h4>
+          <br></br>
+          <h4>Gaussian Stack: </h4>
+          <p>Now, we create Guassian and Laplacian stacks. In order to create a Guassian stack for an image, we repeatedly apply a Gaussian filter(40x40, sigma=5) to the same image to create the levels of the stack. To create the levels of the Laplacian stack, you take the difference of each successive pair of levels in the Gaussian stack. </p>
+          <div class="section-image" data-aos="fade-up">
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/1.png" class="img-fluid" alt="" align="center">
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/2.png" class="img-fluid" alt="" align="center">
+              </div>
+
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/3.png" class="img-fluid" alt="" align="center">
+                  <p><br></p>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/4.png" class="img-fluid" alt="" align="center">
+                  <p><br></p>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/5.png" class="img-fluid" alt="" align="center">
+                  <p><br></p>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/6.png" class="img-fluid" alt="" align="center">
+                  <p><br></p>
+              </div>
+              <div class="section-image-col" data-aos="fade-up">
+                  <img src="out_path/7.png" class="img-fluid" alt="" align="center">
+                  <p><br></p>
+              </div>
+          </div>
+          <h4>Laplacian Stack: </h4>
+          <div class="section-image" data-aos="fade-up">
+
+              <div class="section-image" data-aos="fade-up">
+
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/8.png" class="img-fluid" alt="" align="center">
+                  </div>
+
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/9.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/10.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/11.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/12.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/7.png" class="img-fluid" alt="" align="center">
+                  </div>
+                 </div>
+             </div>
+             <br></br>
+             <h4>Gaussian Stack: </h4>
+             <div class="section-image" data-aos="fade-up">
+                 <div class="section-image-col" data-aos="fade-up">
+                     <img src="out_path/e1.png" class="img-fluid" alt="" align="center">
+                 </div>
+                 <div class="section-image-col" data-aos="fade-up">
+                     <img src="out_path/e2.png" class="img-fluid" alt="" align="center">
+                 </div>
+
+                 <div class="section-image-col" data-aos="fade-up">
+                     <img src="out_path/e3.png" class="img-fluid" alt="" align="center">
+                     <p><br></p>
+                 </div>
+                 <div class="section-image-col" data-aos="fade-up">
+                     <img src="out_path/e4.png" class="img-fluid" alt="" align="center">
+                     <p><br></p>
+                 </div>
+                 <div class="section-image-col" data-aos="fade-up">
+                     <img src="out_path/e5.png" class="img-fluid" alt="" align="center">
+                     <p><br></p>
+                 </div>
+                 <div class="section-image-col" data-aos="fade-up">
+                     <img src="out_path/e6.png" class="img-fluid" alt="" align="center">
+                     <p><br></p>
+                 </div>
+                 <div class="section-image-col" data-aos="fade-up">
+                     <img src="out_path/e7.png" class="img-fluid" alt="" align="center">
+                     <p><br></p>
+                 </div>
+             </div>
+             <h4>Laplacian Stack: </h4>
+             <div class="section-image" data-aos="fade-up">
+
+                 <div class="section-image" data-aos="fade-up">
+
+
+                     <div class="section-image-col" data-aos="fade-up">
+                         <img src="out_path/e8.png" class="img-fluid" alt="" align="center">
+                     </div>
+
+                     <div class="section-image-col" data-aos="fade-up">
+                         <img src="out_path/e9.png" class="img-fluid" alt="" align="center">
+                         <p><br></p>
+                     </div>
+                     <div class="section-image-col" data-aos="fade-up">
+                         <img src="out_path/e10.png" class="img-fluid" alt="" align="center">
+                         <p><br></p>
+                     </div>
+                     <div class="section-image-col" data-aos="fade-up">
+                         <img src="out_path/e11.png" class="img-fluid" alt="" align="center">
+                         <p><br></p>
+                     </div>
+                     <div class="section-image-col" data-aos="fade-up">
+                         <img src="out_path/e12.png" class="img-fluid" alt="" align="center">
+                         <p><br></p>
+                     </div>
+                     <div class="section-image-col" data-aos="fade-up">
+                         <img src="out_path/e13.png" class="img-fluid" alt="" align="center">
+                     </div>
+                     <div class="section-image-col" data-aos="fade-up">
+                         <img src="out_path/e7.png" class="img-fluid" alt="" align="center">
+                         <p><br></p>
+                     </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overview" data-aos="fade-up">
+              <h4>Part 2.4: Multiresolution Blending</h4>
+              <br></br>
+              <p>The goal of this part of the assignment is to blend two images seamlessly using a multi resolution blending. We use the Laplacian and Gaussian stacks that we created in the last part to achieve this. These stacks are used to break two images down into various frequency bands and then combine each band using a mask. This mask decides the weights for each image. For example, the circular mask is a 2d array with 1’s in a circle with a provided center position and radius. This is why a picture of my face appears on my dog in a circle in the hybrid image below. The resulting images are added together to create a hybrid blended image.
+</p>
+              <div class="section-image" data-aos="fade-up">
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/apple.png" class="img-fluid" alt="" align="center">
+                      <figcaption>Image 1</figcaption>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/orange.png" class="img-fluid" alt="" align="center">
+                      <figcaption> Image 2</figcaption>
+                  </div>
+
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/apple_orange.png" class="img-fluid" alt="" align="center">
+                      <figcaption>Hybrid Image</figcaption>
+                      <p><br></p>
+                  </div>
+              </div>
+              <div class="section-image" data-aos="fade-up">
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/chet_before.png" class="img-fluid" alt="" align="center">
+                      <figcaption>Image 1</figcaption>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/rio_bef_bw.png" class="img-fluid" alt="" align="center">
+                      <figcaption> Image 2</figcaption>
+                  </div>
+
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/chetana_rio.png" class="img-fluid" alt="" align="center">
+                      <figcaption>Hybrid Image</figcaption>
+                      <p><br></p>
+                  </div>
+              </div>
+              <div class="section-image" data-aos="fade-up">
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/avni_up.png" class="img-fluid" alt="" align="center">
+                      <figcaption>Image 1</figcaption>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/avni_hand.png" class="img-fluid" alt="" align="center">
+                      <figcaption> Image 2</figcaption>
+                  </div>
+
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/avni_com.png" class="img-fluid" alt="" align="center">
+                      <figcaption>Hybrid Image</figcaption>
+                      <p><br></p>
+                  </div>
+              </div>
+              <br></br>
+              <div class="section-image" data-aos="fade-up">
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/bb_og.png" class="img-fluid" alt="" align="center">
+                      <figcaption>Image 1</figcaption>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/vg_og.png" class="img-fluid" alt="" align="center">
+                      <figcaption> Image 2</figcaption>
+                  </div>
+
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/vg_bb.png" class="img-fluid" alt="" align="center">
+                      <figcaption>Hybrid Image</figcaption>
+                      <p><br></p>
+                  </div>
+              </div>
+
+              <h4>Laplacian Stack for Image 1: </h4>
+              <div class="section-image" data-aos="fade-up">
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l7.png" class="img-fluid" alt="" align="center">
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l8.png" class="img-fluid" alt="" align="center">
+                  </div>
+
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l9.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l10.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l11.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l12.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+              </div>
+              <h4>Laplacian Stack for Mask on Image 1: </h4>
+              <div class="section-image" data-aos="fade-up">
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l14.png" class="img-fluid" alt="" align="center">
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l16.png" class="img-fluid" alt="" align="center">
+                  </div>
+
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l18.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l20.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l22.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l24.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+              </div>
+              <h4>Laplacian Stack for Image 2: </h4>
+              <div class="section-image" data-aos="fade-up">
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l1.png" class="img-fluid" alt="" align="center">
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l2.png" class="img-fluid" alt="" align="center">
+                  </div>
+
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l3.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l4.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l5.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l6.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+              </div>
+              <h4>Laplacian Stack for Mask on Image 2: </h4>
+              <div class="section-image" data-aos="fade-up">
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l13.png" class="img-fluid" alt="" align="center">
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l15.png" class="img-fluid" alt="" align="center">
+                  </div>
+
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l17.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l19.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l21.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+                  <div class="section-image-col" data-aos="fade-up">
+                      <img src="out_path/l23.png" class="img-fluid" alt="" align="center">
+                      <p><br></p>
+                  </div>
+              </div>
+
+            </div>
+            <h4>My favorite part: </h4>
+            <p> My favorite part of the project was definitely the last part, where we got to blend various images together. It was really cool to see all the different things you could do with various images. It was what people do with photoshop, except we were able to do it from scratch, which was really cool to do.</p>
+
+
+    </section><!-- End Team Section -->
+
+  </main><!-- End #main -->
+
+
+  <a href="#" class="back-to-top"><i class="bx bxs-up-arrow-alt"></i></a>
+
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+    <footer id="footer">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Scaffold</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/scaffold-bootstrap-metro-style-template/ -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+
+    </footer><!-- End Footer -->
+
+</body>
+
+</html>
