@@ -11,7 +11,7 @@
 
 ### Method 1 involves finding the convolution of the gaussian filter with [[-1, 1]] and [[-1],[1]] and then using that result to convolve with the actual cameraman image. Method 1 is better in bigger computations, because it is faster. You can reuse the constant convolved gaussian with [[-1, 1]] and [[-1],[1]]. Method 2 involves finding the convolution of the gaussian filter with the image and then using that result to convolve with the [[-1, 1]] and [[-1],[1]] . As you can see in the resulting images below, both methods produce the same result.
 
-###Part 1.3: Image Straightening
+### Part 1.3: Image Straightening
 
 #### Now, we want to take images that are slightly rotated and rotate them to a certain degree such that the image appears straight. We used our gradient and edge detection methods from parts 1.1 and 1.2 to help create a function that automatically straightens our images.
 
